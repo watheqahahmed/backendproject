@@ -1,0 +1,17 @@
+{
+    "name": "golde/backend",
+    "autoload": {
+        "psr-4": {
+            "Golde\\Backend\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Wathiqa Ahmed",
+            "email": "38113360+watheqahahmed@users.noreply.github.com"
+        }
+    ],
+    "require": {
+        "phpmailer/phpmailer": "^6.10"
+    }
+}

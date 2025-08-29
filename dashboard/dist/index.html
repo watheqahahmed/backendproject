@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="" class="">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/dashboard/favicon.ico">
+      <link href="/src/style.css" rel="stylesheet"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vite App</title>
+     <script src="https://cdn.tailwindcss.com"></script>
+ <script>
+   tailwind.config = {
+     darkMode: "class",
+   };
+ </script>
+    <script type="module" crossorigin src="/dashboard/assets/index-DyYBPitE.js"></script>
+    <link rel="stylesheet" crossorigin href="/dashboard/assets/index-N_Im14Rg.css">
+  </head>
+    
+  
+    
+          <div id="app"></div>
+   
+
+    <script>
+      const toggle = document.getElementById("toggle-dark");
+      const html = document.documentElement;
+
+      if (localStorage.getItem("theme") === "dark") {
+        html.classList.add("dark");
+      }
+
+      toggle.addEventListener("click", () => {
+        html.classList.toggle("dark");
+        localStorage.setItem(
+          "theme",
+          html.classList.contains("dark") ? "dark" : "light"
+        );
+      });
+    </script>
+  </body>
+</html>
+ 
+  </body>
+</html>
+
