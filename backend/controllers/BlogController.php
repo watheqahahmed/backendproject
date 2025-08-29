@@ -2,11 +2,13 @@
 require_once __DIR__ . '/../repositories/BlogRepository.php';
 require_once __DIR__ . '/../utils/Response.php';
 
-class BlogController {
+class BlogController
+{
     private BlogRepository $blogRepo;
     private string $uploadDir;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->blogRepo = new BlogRepository();
         $this->uploadDir = __DIR__ . '/../uploads/blog/';
 
@@ -15,7 +17,8 @@ class BlogController {
         }
     }
 
-    public function getBlogPosts(?int $id = null): void {
+    public function getBlogPosts(?int $id = null): void
+    {
         if ($id) {
             $post = $this->blogRepo->getById($id);
             if ($post) Response::json(['success' => true, 'blogPost' => $post]);
@@ -26,7 +29,8 @@ class BlogController {
         }
     }
 
-    public function createBlogPost(array $data): void {
+    public function createBlogPost(array $data): void
+    {
         $title = $data['title'] ?? null;
         $content = $data['content'] ?? null;
 
@@ -46,7 +50,8 @@ class BlogController {
         }
     }
 
-    public function updateBlogPost(int $id, array $data): void {
+    public function updateBlogPost(int $id, array $data): void
+    {
         $post = $this->blogRepo->getById($id);
         if (!$post) Response::error('المقال غير موجود.', 404);
 
@@ -68,7 +73,8 @@ class BlogController {
         }
     }
 
-    public function deleteBlogPost(int $id): void {
+    public function deleteBlogPost(int $id): void
+    {
         $post = $this->blogRepo->getById($id);
         if (!$post) Response::error('المقال غير موجود.', 404);
 
@@ -83,7 +89,8 @@ class BlogController {
         }
     }
 
-    private function handleImageUpload(array $file): ?string {
+    private function handleImageUpload(array $file): ?string
+    {
         $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
         $fileName = uniqid() . '.' . $ext;
         $targetFile = $this->uploadDir . $fileName;

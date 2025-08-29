@@ -11,75 +11,74 @@ $request = $_GET['request'] ?? '';
 
 $input = json_decode(file_get_contents('php://input'), true);
 
-switch($request){
+switch ($request) {
     // =================== Users CRUD ===================
     case 'users':
-        if($_SERVER['REQUEST_METHOD'] === 'GET'){
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $controller->getUsers();
-        } elseif($_SERVER['REQUEST_METHOD'] === 'POST'){
+        } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // فقط admin يمكنه إنشاء مستخدم جديد
-            if(!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin'){
+            if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
                 http_response_code(403);
-                echo json_encode(['success'=>false,'message'=>'غير مسموح']);
+                echo json_encode(['success' => false, 'message' => 'غير مسموح']);
                 exit;
             }
             $controller->createUser($input);
-        } elseif($_SERVER['REQUEST_METHOD'] === 'PUT'){
+        } elseif ($_SERVER['REQUEST_METHOD'] === 'PUT') {
             $id = $_GET['id'] ?? null;
-            if(!$id){
-                echo json_encode(['success'=>false,'message'=>'المعرف مطلوب']);
+            if (!$id) {
+                echo json_encode(['success' => false, 'message' => 'المعرف مطلوب']);
                 exit;
             }
             // السماح لكل المستخدمين بتحديث المستخدمين
             $controller->updateUser($id, $input);
-        } elseif($_SERVER['REQUEST_METHOD'] === 'DELETE'){
+        } elseif ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
             $id = $_GET['id'] ?? null;
-            if(!$id){
-                echo json_encode(['success'=>false,'message'=>'المعرف مطلوب']);
+            if (!$id) {
+                echo json_encode(['success' => false, 'message' => 'المعرف مطلوب']);
                 exit;
             }
             // السماح لكل المستخدمين بحذف المستخدمين
             $controller->deleteUser($id);
-        } else{
+        } else {
             http_response_code(405);
-            echo json_encode(['success'=>false,'message'=>'Method Not Allowed']);
+            echo json_encode(['success' => false, 'message' => 'Method Not Allowed']);
         }
         break;
 
     // =================== Register ===================
     case 'register':
-        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $controller->register($input);
-        } else{
+        } else {
             http_response_code(405);
-            echo json_encode(['success'=>false,'message'=>'Method Not Allowed']);
+            echo json_encode(['success' => false, 'message' => 'Method Not Allowed']);
         }
         break;
 
     // =================== Login ===================
     case 'login':
-        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $controller->login($input);
-        } else{
+        } else {
             http_response_code(405);
-            echo json_encode(['success'=>false,'message'=>'Method Not Allowed']);
+            echo json_encode(['success' => false, 'message' => 'Method Not Allowed']);
         }
         break;
 
     // =================== Logout ===================
     case 'logout':
-        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             session_destroy();
-            echo json_encode(['success'=>true,'message'=>'تم تسجيل الخروج']);
-        } else{
+            echo json_encode(['success' => true, 'message' => 'تم تسجيل الخروج']);
+        } else {
             http_response_code(405);
-            echo json_encode(['success'=>false,'message'=>'Method Not Allowed']);
+            echo json_encode(['success' => false, 'message' => 'Method Not Allowed']);
         }
         break;
 
     default:
         http_response_code(404);
-        echo json_encode(['success'=>false,'message'=>'API endpoint غير موجود']);
+        echo json_encode(['success' => false, 'message' => 'API endpoint غير موجود']);
         break;
 }
-?>
